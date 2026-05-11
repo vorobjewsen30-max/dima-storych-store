@@ -1,4 +1,4 @@
-<%- include('layout', { body: `
+<% const body = `
 <h1>🛒 Корзина</h1>
 
 <% if (cart.length === 0) { %>
@@ -35,4 +35,5 @@
         <a href="/" class="btn btn-outline">Продолжить покупки</a>
     </div>
 <% } %>
-` }) %>
+`; %>
+<%- include('layout', { body: body }) %>

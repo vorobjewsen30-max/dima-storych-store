@@ -1,4 +1,4 @@
-<%- include('layout', { body: `
+<% const body = `
 <h1>⚙️ Админ-панель</h1>
 
 <div class="admin-stats">
@@ -24,4 +24,5 @@
     <a href="/admin/orders" class="btn btn-outline">📦 Заказы</a>
     <a href="/admin/logout" class="btn btn-danger">🚪 Выйти</a>
 </div>
-` }) %>
+`; %>
+<%- include('layout', { body: body }) %>

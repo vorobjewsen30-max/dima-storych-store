@@ -1,4 +1,4 @@
-<%- include('layout', { body: `
+<% const body = `
 <h1>📦 Заказы</h1>
 <a href="/admin" class="btn btn-outline">← Назад</a>
 
@@ -44,4 +44,5 @@
         </tbody>
     </table>
 </div>
-` }) %>
+`; %>
+<%- include('layout', { body: body }) %>

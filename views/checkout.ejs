@@ -1,4 +1,4 @@
-<%- include('layout', { body: `
+<% const body = `
 <h1>📦 Оформление заказа</h1>
 
 <div class="checkout-grid">
@@ -39,4 +39,5 @@
         </div>
     </div>
 </div>
-` }) %>
+`; %>
+<%- include('layout', { body: body }) %>

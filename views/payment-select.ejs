@@ -1,4 +1,4 @@
-<%- include('layout', { body: `
+<% const body = `
 <h1>💳 Выберите способ оплаты</h1>
 
 <div class="payment-order-info">
@@ -38,4 +38,5 @@
 <div class="payment-security">
     <p>🔒 Платёж защищён. Данные обрабатываются через ЮKassa.</p>
 </div>
-` }) %>
+`; %>
+<%- include('layout', { body: body }) %>

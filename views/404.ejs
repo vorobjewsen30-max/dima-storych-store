@@ -1,7 +1,8 @@
-<%- include('layout', { body: `
+<% const body = `
 <div class="error-page">
     <h1>😕 404</h1>
     <p><%= title %></p>
     <a href="/" class="btn btn-primary">На главную</a>
 </div>
-` }) %>
+`; %>
+<%- include('layout', { body: body }) %>

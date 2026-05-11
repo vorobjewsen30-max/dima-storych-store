@@ -1,7 +1,7 @@
-<%- include('layout', { body: `
+<% const body = `
 <h1>🔐 Вход в админку</h1>
 
-<% if (error) { %>
+<% if (typeof error !== 'undefined' && error) { %>
     <div class="alert alert-danger"><%= error %></div>
 <% } %>
 
@@ -12,4 +12,5 @@
     </div>
     <button type="submit" class="btn btn-primary">Войти</button>
 </form>
-` }) %>
+`; %>
+<%- include('layout', { body: body }) %>

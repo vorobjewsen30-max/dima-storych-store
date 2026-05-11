@@ -1,4 +1,4 @@
-<%- include('layout', { body: `
+<% const body = `
 <h1>📋 Заказ №<%= order.order_number %></h1>
 <a href="/admin/orders" class="btn btn-outline">← К заказам</a>
 
@@ -59,4 +59,5 @@
     </select>
     <button type="submit" class="btn btn-primary">Обновить статус</button>
 </form>
-` }) %>
+`; %>
+<%- include('layout', { body: body }) %>
