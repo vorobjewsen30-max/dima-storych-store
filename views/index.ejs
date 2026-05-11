@@ -1,0 +1,66 @@
+<%- include('layout', { body: `
+<div class="catalog-header">
+    <h1>🛍️ Магазин Димы Сторыча</h1>
+    <p>Мерч, одежда, аксессуары и всякое крутое!</p>
+</div>
+
+<div class="category-filter">
+    <a href="/" class="filter-btn <%= currentCategory === '' ? 'active' : '' %>">Все</a>
+    <% categories.forEach(function(cat) { %>
+        <a href="/?category=<%= encodeURIComponent(cat.category) %>" 
+           class="filter-btn <%= currentCategory === cat.category ? 'active' : '' %>">
+            <%= cat.category %>
+        </a>
+    <% }) %>
+</div>
+
+<div class="products-grid">
+    <% if (products.length === 0) { %>
+        <p class="empty">Товаров пока нет. Зайдите позже!</p>
+    <% } %>
+    <% products.forEach(function(product) { %>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="product-emoji">
+                    <% if (product.category === 'Одежда') { %>👕
+                    <% } else if (product.category === 'Посуда') { %>☕
+                    <% } else if (product.category === 'Стикеры') { %>⭐
+                    <% } else if (product.category === 'Канцелярия') { %>📓
+                    <% } else if (product.category === 'Аксессуары') { %>🎮
+                    <% } else if (product.category === 'Сумки') { %>👜
+                    <% } else { %>📦<% } %>
+                </span>
+            </div>
+            <div class="product-info">
+                <h3><a href="/product/<%= product.id %>"><%= product.name %></a></h3>
+                <p class="product-category"><%= product.category %></p>
+                <p class="product-price"><%= product.price.toFixed(0) %> ₽</p>
+                <button class="btn btn-primary add-to-cart" data-id="<%= product.id %>">
+                    🛒 В корзину
+                </button>
+            </div>
+        </div>
+    <% }) %>
+</div>
+
+<script>
+document.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.addEventListener('click', async () => {
+        const id = btn.dataset.id;
+        const res = await fetch('/cart/add', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({product_id: id, quantity: 1})
+        });
+        const data = await res.json();
+        if (data.success) {
+            btn.textContent = '✅ Добавлено!';
+            setTimeout(() => btn.textContent = '🛒 В корзину', 1500);
+            // Обновить счётчик корзины
+            const badge = document.querySelector('.cart-badge');
+            if (badge) badge.textContent = data.cartCount;
+        }
+    });
+});
+</script>
+` }) %>

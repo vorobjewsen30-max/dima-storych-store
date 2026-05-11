@@ -1,0 +1,43 @@
+<%- include('layout', { body: `
+<div class="product-detail">
+    <div class="product-detail-image">
+        <span class="product-emoji large">
+            <% if (product.category === 'Одежда') { %>👕
+            <% } else if (product.category === 'Посуда') { %>☕
+            <% } else if (product.category === 'Стикеры') { %>⭐
+            <% } else if (product.category === 'Канцелярия') { %>📓
+            <% } else if (product.category === 'Аксессуары') { %>🎮
+            <% } else if (product.category === 'Сумки') { %>👜
+            <% } else { %>📦<% } %>
+        </span>
+    </div>
+    <div class="product-detail-info">
+        <p class="product-category"><%= product.category %></p>
+        <h1><%= product.name %></h1>
+        <p class="product-description"><%= product.description %></p>
+        <p class="product-price big"><%= product.price.toFixed(0) %> ₽</p>
+        <p class="product-stock">В наличии: <%= product.stock %> шт.</p>
+        <button class="btn btn-primary btn-lg add-to-cart" data-id="<%= product.id %>">
+            🛒 Добавить в корзину
+        </button>
+        <a href="/" class="btn btn-outline">← Назад в каталог</a>
+    </div>
+</div>
+
+<script>
+document.querySelector('.add-to-cart').addEventListener('click', async () => {
+    const id = document.querySelector('.add-to-cart').dataset.id;
+    const res = await fetch('/cart/add', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({product_id: id, quantity: 1})
+    });
+    const data = await res.json();
+    if (data.success) {
+        const btn = document.querySelector('.add-to-cart');
+        btn.textContent = '✅ Добавлено!';
+        setTimeout(() => btn.textContent = '🛒 Добавить в корзину', 1500);
+    }
+});
+</script>
+` }) %>

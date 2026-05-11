@@ -1,0 +1,42 @@
+<%- include('layout', { body: `
+<h1>📦 Оформление заказа</h1>
+
+<div class="checkout-grid">
+    <div class="checkout-form">
+        <form action="/checkout" method="POST">
+            <div class="form-group">
+                <label>Имя и фамилия *</label>
+                <input type="text" name="name" required class="form-control" placeholder="Иван Иванов">
+            </div>
+            <div class="form-group">
+                <label>Email *</label>
+                <input type="email" name="email" required class="form-control" placeholder="ivan@example.com">
+            </div>
+            <div class="form-group">
+                <label>Телефон</label>
+                <input type="tel" name="phone" class="form-control" placeholder="+7 999 123-45-67">
+            </div>
+            <div class="form-group">
+                <label>Адрес доставки</label>
+                <textarea name="address" class="form-control" rows="3" placeholder="Город, улица, дом, квартира"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">💳 Перейти к оплате</button>
+        </form>
+    </div>
+
+    <div class="checkout-summary">
+        <h2>Ваш заказ</h2>
+        <% cart.forEach(function(item) { %>
+            <div class="checkout-item">
+                <span><%= item.name %> × <%= item.quantity %></span>
+                <span><%= (item.price * item.quantity).toFixed(0) %> ₽</span>
+            </div>
+        <% }) %>
+        <hr>
+        <div class="checkout-total">
+            <strong>Итого:</strong>
+            <strong class="total-price"><%= cartTotal.toFixed(0) %> ₽</strong>
+        </div>
+    </div>
+</div>
+` }) %>

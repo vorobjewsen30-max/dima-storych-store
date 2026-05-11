@@ -1,0 +1,38 @@
+<%- include('layout', { body: `
+<h1>🛒 Корзина</h1>
+
+<% if (cart.length === 0) { %>
+    <div class="empty-cart">
+        <p>🛒 Корзина пуста.</p>
+        <a href="/" class="btn btn-primary">Перейти в каталог</a>
+    </div>
+<% } else { %>
+    <div class="cart-items">
+        <% cart.forEach(function(item) { %>
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <h3><%= item.name %></h3>
+                    <p><%= item.price.toFixed(0) %> ₽ × <%= item.quantity %> = <strong><%= (item.price * item.quantity).toFixed(0) %> ₽</strong></p>
+                </div>
+                <div class="cart-item-actions">
+                    <form action="/cart/update" method="POST" class="qty-form">
+                        <input type="hidden" name="product_id" value="<%= item.product_id %>">
+                        <input type="number" name="quantity" value="<%= item.quantity %>" min="1" max="99" class="qty-input">
+                        <button type="submit" class="btn btn-sm">Обновить</button>
+                    </form>
+                    <form action="/cart/remove" method="POST">
+                        <input type="hidden" name="product_id" value="<%= item.product_id %>">
+                        <button type="submit" class="btn btn-danger btn-sm">🗑️ Удалить</button>
+                    </form>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+    <div class="cart-summary">
+        <h2>Итого: <span class="total-price"><%= cartTotal.toFixed(0) %> ₽</span></h2>
+        <a href="/checkout" class="btn btn-primary btn-lg">📦 Оформить заказ</a>
+        <a href="/" class="btn btn-outline">Продолжить покупки</a>
+    </div>
+<% } %>
+` }) %>

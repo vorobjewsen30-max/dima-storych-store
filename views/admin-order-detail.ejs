@@ -1,0 +1,62 @@
+<%- include('layout', { body: `
+<h1>📋 Заказ №<%= order.order_number %></h1>
+<a href="/admin/orders" class="btn btn-outline">← К заказам</a>
+
+<div class="order-detail-grid">
+    <div class="order-info-card">
+        <h2>Информация о заказе</h2>
+        <p><strong>Статус:</strong> 
+            <span class="status-badge status-<%= order.status %>"><%= order.status %></span>
+        </p>
+        <p><strong>Оплата:</strong> 
+            <span class="status-badge status-<%= order.payment_status %>"><%= order.payment_status %></span>
+        </p>
+        <% if (order.payment_id) { %>
+            <p><strong>ID платежа:</strong> <%= order.payment_id %></p>
+        <% } %>
+        <p><strong>Дата:</strong> <%= new Date(order.created_at).toLocaleString('ru-RU') %></p>
+        <p><strong>Сумма:</strong> <span class="total-price"><%= order.total.toFixed(0) %> ₽</span></p>
+    </div>
+
+    <div class="order-info-card">
+        <h2>Клиент</h2>
+        <p><strong>Имя:</strong> <%= order.customer_name %></p>
+        <p><strong>Email:</strong> <%= order.customer_email %></p>
+        <% if (order.customer_phone) { %>
+            <p><strong>Телефон:</strong> <%= order.customer_phone %></p>
+        <% } %>
+        <% if (order.customer_address) { %>
+            <p><strong>Адрес:</strong> <%= order.customer_address %></p>
+        <% } %>
+    </div>
+</div>
+
+<h2>Товары</h2>
+<table class="admin-table">
+    <thead>
+        <tr><th>Товар</th><th>Цена</th><th>Кол-во</th><th>Сумма</th></tr>
+    </thead>
+    <tbody>
+        <% items.forEach(function(item) { %>
+            <tr>
+                <td><%= item.product_name %></td>
+                <td><%= item.price.toFixed(0) %> ₽</td>
+                <td><%= item.quantity %></td>
+                <td><%= (item.price * item.quantity).toFixed(0) %> ₽</td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+
+<h2>Изменить статус</h2>
+<form action="/admin/orders/<%= order.id %>/status" method="POST" class="status-form">
+    <select name="status" class="form-control">
+        <option value="pending" <%= order.status === 'pending' ? 'selected' : '' %>>⏳ Новый</option>
+        <option value="processing" <%= order.status === 'processing' ? 'selected' : '' %>>🔄 В обработке</option>
+        <option value="shipped" <%= order.status === 'shipped' ? 'selected' : '' %>>🚚 Отправлен</option>
+        <option value="delivered" <%= order.status === 'delivered' ? 'selected' : '' %>>✅ Доставлен</option>
+        <option value="cancelled" <%= order.status === 'cancelled' ? 'selected' : '' %>>❌ Отменён</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Обновить статус</button>
+</form>
+` }) %>

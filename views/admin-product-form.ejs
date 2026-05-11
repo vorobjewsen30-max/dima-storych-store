@@ -1,0 +1,42 @@
+<%- include('layout', { body: `
+<h1><%= product ? '✏️ Редактировать товар' : '➕ Добавить товар' %></h1>
+
+<form action="/admin/products/<%= product ? 'edit/' + product.id : 'add' %>" method="POST" class="product-form">
+    <div class="form-group">
+        <label>Название *</label>
+        <input type="text" name="name" required class="form-control" value="<%= product ? product.name : '' %>">
+    </div>
+    <div class="form-group">
+        <label>Описание</label>
+        <textarea name="description" class="form-control" rows="3"><%= product ? product.description : '' %></textarea>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label>Цена (₽) *</label>
+            <input type="number" name="price" required class="form-control" step="0.01" value="<%= product ? product.price : '' %>">
+        </div>
+        <div class="form-group">
+            <label>Категория *</label>
+            <select name="category" required class="form-control">
+                <% ['Одежда', 'Посуда', 'Стикеры', 'Канцелярия', 'Аксессуары', 'Сумки'].forEach(function(cat) { %>
+                    <option value="<%= cat %>" <%= product && product.category === cat ? 'selected' : '' %>><%= cat %></option>
+                <% }) %>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label>Остаток</label>
+            <input type="number" name="stock" class="form-control" value="<%= product ? product.stock : 999 %>">
+        </div>
+        <div class="form-group">
+            <label>Изображение (URL)</label>
+            <input type="text" name="image" class="form-control" value="<%= product ? product.image : '' %>" placeholder="/images/no-photo.png">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">
+        <%= product ? '💾 Сохранить' : '➕ Добавить товар' %>
+    </button>
+    <a href="/admin/products" class="btn btn-outline">Отмена</a>
+</form>
+` }) %>

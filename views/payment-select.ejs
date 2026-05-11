@@ -1,0 +1,41 @@
+<%- include('layout', { body: `
+<h1>💳 Выберите способ оплаты</h1>
+
+<div class="payment-order-info">
+    <p>Заказ <strong>№<%= order.number %></strong></p>
+    <p>Сумма к оплате: <span class="total-price"><%= order.total.toFixed(0) %> ₽</span></p>
+</div>
+
+<div class="payment-methods">
+    <form action="/payment/create" method="POST">
+        <div class="payment-options">
+            <label class="payment-option">
+                <input type="radio" name="payment_method" value="bank_card" checked>
+                <span class="payment-icon">💳</span>
+                <span class="payment-label">Банковская карта</span>
+                <span class="payment-desc">Visa, Mastercard, МИР</span>
+            </label>
+
+            <label class="payment-option">
+                <input type="radio" name="payment_method" value="sbp">
+                <span class="payment-icon">📱</span>
+                <span class="payment-label">СБП (Система быстрых платежей)</span>
+                <span class="payment-desc">Оплата через приложение банка</span>
+            </label>
+
+            <label class="payment-option">
+                <input type="radio" name="payment_method" value="yoo_money">
+                <span class="payment-icon">🪙</span>
+                <span class="payment-label">ЮMoney</span>
+                <span class="payment-desc">Электронный кошелёк</span>
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg">💳 Оплатить <%= order.total.toFixed(0) %> ₽</button>
+    </form>
+</div>
+
+<div class="payment-security">
+    <p>🔒 Платёж защищён. Данные обрабатываются через ЮKassa.</p>
+</div>
+` }) %>

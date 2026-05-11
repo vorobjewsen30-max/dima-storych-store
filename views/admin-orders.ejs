@@ -1,0 +1,47 @@
+<%- include('layout', { body: `
+<h1>📦 Заказы</h1>
+<a href="/admin" class="btn btn-outline">← Назад</a>
+
+<div class="admin-table-wrapper">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Клиент</th>
+                <th>Сумма</th>
+                <th>Статус</th>
+                <th>Оплата</th>
+                <th>Дата</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% orders.forEach(function(o) { %>
+                <tr>
+                    <td><strong><%= o.order_number %></strong></td>
+                    <td><%= o.customer_name %></td>
+                    <td><%= o.total.toFixed(0) %> ₽</td>
+                    <td>
+                        <span class="status-badge status-<%= o.status %>">
+                            <% if (o.status === 'pending') { %>⏳ Новый
+                            <% } else if (o.status === 'processing') { %>🔄 В обработке
+                            <% } else if (o.status === 'shipped') { %>🚚 Отправлен
+                            <% } else if (o.status === 'delivered') { %>✅ Доставлен
+                            <% } else if (o.status === 'cancelled') { %>❌ Отменён
+                            <% } else { %><%= o.status %><% } %>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="status-badge status-<%= o.payment_status %>">
+                            <%= o.payment_status === 'succeeded' ? '✅ Оплачен' : 
+                                o.payment_status === 'pending' ? '⏳ Ожидает' : o.payment_status %>
+                        </span>
+                    </td>
+                    <td><%= new Date(o.created_at).toLocaleString('ru-RU') %></td>
+                    <td><a href="/admin/orders/<%= o.id %>" class="btn btn-sm">📋</a></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+` }) %>

@@ -1,0 +1,27 @@
+<%- include('layout', { body: `
+<h1>⚙️ Админ-панель</h1>
+
+<div class="admin-stats">
+    <div class="stat-card">
+        <span class="stat-icon">📦</span>
+        <span class="stat-value"><%= ordersCount %></span>
+        <span class="stat-label">Заказов</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-icon">🏷️</span>
+        <span class="stat-value"><%= productsCount %></span>
+        <span class="stat-label">Товаров</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-icon">💰</span>
+        <span class="stat-value"><%= revenue.toFixed(0) %> ₽</span>
+        <span class="stat-label">Выручка</span>
+    </div>
+</div>
+
+<div class="admin-menu">
+    <a href="/admin/products" class="btn btn-outline">🏷️ Управление товарами</a>
+    <a href="/admin/orders" class="btn btn-outline">📦 Заказы</a>
+    <a href="/admin/logout" class="btn btn-danger">🚪 Выйти</a>
+</div>
+` }) %>

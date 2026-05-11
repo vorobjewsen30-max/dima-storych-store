@@ -1,0 +1,37 @@
+<%- include('layout', { body: `
+<h1>🏷️ Управление товарами</h1>
+<a href="/admin/products/add" class="btn btn-primary">➕ Добавить товар</a>
+<a href="/admin" class="btn btn-outline">← Назад</a>
+
+<div class="admin-table-wrapper">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Категория</th>
+                <th>Цена</th>
+                <th>Остаток</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% products.forEach(function(p) { %>
+                <tr>
+                    <td><%= p.id %></td>
+                    <td><%= p.name %></td>
+                    <td><%= p.category %></td>
+                    <td><%= p.price.toFixed(0) %> ₽</td>
+                    <td><%= p.stock %></td>
+                    <td>
+                        <a href="/admin/products/edit/<%= p.id %>" class="btn btn-sm">✏️</a>
+                        <form action="/admin/products/delete/<%= p.id %>" method="POST" style="display:inline" onsubmit="return confirm('Удалить товар?')">
+                            <button type="submit" class="btn btn-danger btn-sm">🗑️</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+` }) %>

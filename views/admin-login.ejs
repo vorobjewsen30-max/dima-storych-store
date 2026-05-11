@@ -1,0 +1,15 @@
+<%- include('layout', { body: `
+<h1>🔐 Вход в админку</h1>
+
+<% if (error) { %>
+    <div class="alert alert-danger"><%= error %></div>
+<% } %>
+
+<form action="/admin/login" method="POST" class="login-form">
+    <div class="form-group">
+        <label>Пароль</label>
+        <input type="password" name="password" required class="form-control" placeholder="Введите пароль">
+    </div>
+    <button type="submit" class="btn btn-primary">Войти</button>
+</form>
+` }) %>
