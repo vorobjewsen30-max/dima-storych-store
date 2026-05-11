@@ -12,7 +12,6 @@
     "express-session": "^1.17.3",
     "ejs": "^3.1.9",
     "sqlite3": "^5.1.6",
-    "yookassa": "^0.0.2",
     "dotenv": "^16.3.1",
     "uuid": "^9.0.0",
     "body-parser": "^1.20.2"
