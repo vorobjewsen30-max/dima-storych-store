@@ -1,14 +1,13 @@
-<% const body = `
 <div class="catalog-header">
     <h1>🛍️ Магазин Димы Сторыча</h1>
     <p>Мерч, одежда, аксессуары и всякое крутое!</p>
 </div>
 
 <div class="category-filter">
-    <a href="/" class="filter-btn <%= currentCategory === '' ? 'active' : '' %>">Все</a>
+    <a href="/" class="filter-btn <% if (currentCategory === '') { %>active<% } %>">Все</a>
     <% categories.forEach(function(cat) { %>
         <a href="/?category=<%= encodeURIComponent(cat.category) %>" 
-           class="filter-btn <%= currentCategory === cat.category ? 'active' : '' %>">
+           class="filter-btn <% if (currentCategory === cat.category) { %>active<% } %>">
             <%= cat.category %>
         </a>
     <% }) %>
@@ -62,5 +61,3 @@ document.querySelectorAll('.add-to-cart').forEach(btn => {
     });
 });
 </script>
-`; %>
-<%- include('layout', { body: body }) %>
